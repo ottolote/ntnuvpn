@@ -1,0 +1,9 @@
+#!/bin/bash
+sudo openvpn --mktun --dev tun1
+sudo ifconfig tun1 up
+sudo openconnect sslvpn.ntnu.no --interface=tun1
+sudo ifconfig tun1 down
+sudo openvpn --rmtun --dev tun1
+
+
+
