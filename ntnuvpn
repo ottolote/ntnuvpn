@@ -1,9 +1,18 @@
 #!/bin/bash
-sudo openvpn --mktun --dev tun1
-sudo ifconfig tun1 up
-sudo openconnect sslvpn.ntnu.no --interface=tun1
-sudo ifconfig tun1 down
-sudo openvpn --rmtun --dev tun1
 
+# make sure script runs as root
+if [ "$(id -u)" != "0" ]; then
+  sudo "$0" "$@" 
+  exit
+fi
 
+# create tun1 device
+openvpn --mktun --dev tun1
+ifconfig tun1 up
 
+# start openconnect
+openconnect sslvpn.ntnu.no --interface=tun1
+
+# remove the tunneling device when openconnect closes
+ifconfig tun1 down
+openvpn --rmtun --dev tun1
