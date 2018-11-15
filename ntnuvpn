@@ -11,7 +11,7 @@ openvpn --mktun --dev tun1
 ifconfig tun1 up
 
 # start openconnect
-openconnect sslvpn.ntnu.no --interface=tun1
+openconnect vpn.ntnu.no --interface=tun1
 
 # remove the tunneling device when openconnect closes
 ifconfig tun1 down
